@@ -26,7 +26,6 @@ import json
 from collections import OrderedDict
 from decimal import Decimal
 from pyangbind.lib.yangtypes import safe_name
-from types import ModuleType
 import copy
 
 import sys

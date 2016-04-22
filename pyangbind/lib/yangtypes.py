@@ -624,7 +624,9 @@ def YANGListType(*args, **kwargs):
                                path_helper=path_helper,
                                register_path=(self._parent._path() +
                                 [self._yang_name + path_keystring]),
-                               extmethods=self._parent._extmethods)
+                               extmethods=self._parent._extmethods,
+                               defining_module = self._defining_module,
+                               namespace=self._namespace)
           else:
             # hand the value to the init, rather than simply creating an empty
             # object.
@@ -635,6 +637,8 @@ def YANGListType(*args, **kwargs):
                                 register_path=(self._parent._path() +
                                 [self._yang_name + path_keystring]),
                                 extmethods=self._parent._extmethods,
+                                namespace=self._namespace,
+                                defining_module=self._defining_module,
                                 load=True)
 
           if keydict is not None:

@@ -93,6 +93,7 @@ def main():
             'k1': 1,
             'uint16': 1,
             'union-list': [16, u'chicken'],
+            'list-of-decimals': [1.0000, 2.0000],
             'uint32': 1,
             'int32': 1,
             'int16': 1,

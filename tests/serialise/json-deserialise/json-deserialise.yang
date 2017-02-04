@@ -118,6 +118,12 @@ module json-deserialise {
         }
       }
 
+      leaf-list list-of-decimals {
+        type decimal64 {
+          fraction-digits 4;
+        }
+      }
+
       leaf leafref {
         type leafref {
           path "/c1/t1/target";

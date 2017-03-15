@@ -1,0 +1,4 @@
+submodule subm-b {
+  belongs-to mod-a { prefix a; }
+  include subm-x;
+}

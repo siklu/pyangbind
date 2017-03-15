@@ -35,6 +35,10 @@ def setup_test():
   cmd += " -f pybind -o %s/bindings.py" % this_dir
   cmd += " -p %s" % this_dir
   cmd += " --use-extmethods"
+  cmd += " --use-xpathhelper"
+  # Check the ignore-circular-dependencies flag that is required 
+  # since Nokia imports submodules between one another.
+  cmd += " --ignore-circular-dependencies"
   cmd += " %s/mod-a.yang" % (this_dir)
   os.system(cmd)
 
@@ -44,7 +48,7 @@ def teardown_test():
   os.system("/bin/rm %s/bindings.py" % this_dir)
   os.system("/bin/rm %s/bindings.pyc" % this_dir)
 
-class PyangbindSubmoduleTests(unittest.TestCase):
+class PyangbindNokiaModuleTests(unittest.TestCase):
 
   def __init__(self, *args, **kwargs):
     unittest.TestCase.__init__(self, *args, **kwargs)
@@ -58,24 +62,43 @@ class PyangbindSubmoduleTests(unittest.TestCase):
     self.instance = bindings.mod_a()
 
   def test_001_check_correct_import(self):
-    self.assertIs(hasattr(self.instance, "a"), True)
-    self.assertIs(hasattr(self.instance.a, "b"), True)
+    self.assertIs(hasattr(self.instance, "d"), True)
+    self.assertIs(hasattr(self.instance.d, "e"), True)
+    self.assertIs(hasattr(self.instance.d, "f"), True)  
 
-  def test_002_identity_in_submodule(self):
-    self.assertIs(hasattr(self.instance, "q"), True)
-    self.assertIs(hasattr(self.instance.q, "idref"), True)
-
-    passed = True
+  def test_002_check_leaf_e(self):
+    p = True
     try:
-      self.instance.q.idref = "j"
+      self.instance.d.e = "aardvark"
+    except ValueError as e:
+      print e
+      p = False
+    self.assertIs(p, True)
+
+  def test_003_check_leaf_f(self):
+    p = True
+    try:
+      self.instance.d.f = "aardwolf"
     except ValueError:
-      passed = False
+      p = False
+    self.assertIs(p, True)
 
-    self.assertIs(passed, True)
+  def test_004_check_leaf_e_negative(self):
+    p = True
+    try:
+      self.instance.d.e = "anteater"
+    except ValueError:
+      p = False
+    self.assertIs(p, False)
 
-  def test_003_data_definition_in_submodule(self):
-    print self.instance.get()
-    self.assertIs(hasattr(self.instance, "in_b"), True)
+  def test_005_check_leaf_f_negative(self):
+    p = True
+    try:
+      self.instance.d.f = "armadillo"
+    except ValueError:
+      p = False
+    self.assertIs(p, False)
+
 
 if __name__ == '__main__':
   keepfiles = False

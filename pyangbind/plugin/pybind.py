@@ -99,6 +99,12 @@ class_map = {
         "quote_arg": True,
         "pytype": YANGBool
     },
+    'bits': {
+        "native_type": "unicode",
+        "base_type": True,
+        "quote_arg": True,
+        "pytype": unicode
+    },
     'binary': {
         "native_type": "bitarray",
         "base_type": True,
@@ -278,6 +284,11 @@ class PyangBindClass(plugin.PyangPlugin):
                                       notifications defined in each
                                       module. These are placed at
                                       the root of each module"""),
+          optparse.make_option("--ignore-circular-dependencies",
+                                dest="ignore_circdeps",
+                                action="store_true",
+                                help=("Ignore circular dependencies in "
+                                  "module contents detected by pyang."))
       ]
       g = optparser.add_option_group("pyangbind output specific options")
       g.add_options(optlist)
@@ -300,8 +311,12 @@ def build_pybind(ctx, modules, fd):
   # we provided but then unused.
   if len(ctx.errors):
     for e in ctx.errors:
-      print "INFO: encountered %s" % str(e)
-      if not e[1] in ["UNUSED_IMPORT", "PATTERN_ERROR"]:
+      ignored_errors = ["UNUSED_IMPORT", "PATTERN_ERROR"]
+      if ctx.opts.ignore_circdeps:
+        ignored_errors.append("CIRCULAR_DEPENDENCY")
+
+      if not e[1] in ignored_errors:
+        print "INFO: encountered %s" % str(e)
         sys.stderr.write("FATAL: pyangbind cannot build module that pyang" +
           " has found errors with.\n")
         sys.exit(127)
@@ -399,10 +414,7 @@ def build_pybind(ctx, modules, fd):
   for modname in pyang_called_modules:
     module = module_d[modname]
     mods = [module]
-    for i in module.search('include'):
-      subm = ctx.get_module(i.arg)
-      if subm is not None:
-        mods.append(subm)
+
     for m in mods:
       children = [ch for ch in module.i_children
             if ch.keyword in statements.data_definition_keywords]
@@ -499,7 +511,7 @@ def build_typedefs(ctx, defnd):
     any_unknown = False
     for i in subtypes:
       # Resolve this typedef to the module that it
-      # was defined by
+      # was defined by2.
 
       if ":" in i.arg:
         defining_module = util.prefix_to_module(defnd[t].i_module,
@@ -1220,8 +1232,18 @@ def build_elemtype(ctx, et, prefix=False):
     elif et.arg == "union":
       elemtype = []
       for uniontype in et.search('type'):
+        # Handle the case where the typedef is in a different module, and
+        # the prefix used is different in the referencing module to the
+        # defining module.
+        if ":" in uniontype.arg:
+          defmod = util.prefix_to_module(uniontype.i_module,
+                           uniontype.arg.split(":")[0], uniontype.pos, ctx.errors)
+          origpfx = defmod.search_one("prefix").arg
+          ut = "%s:%s" % (origpfx, uniontype.arg.split(":")[1])    
+        else:
+          ut = uniontype.arg
         elemtype_s = copy.deepcopy(build_elemtype(ctx, uniontype))
-        elemtype_s[1]["yang_type"] = uniontype.arg
+        elemtype_s[1]["yang_type"] = ut
         elemtype.append(elemtype_s)
       cls = "union"
     # Map leafrefs to a ReferenceType, handling the referenced path, and
@@ -1277,8 +1299,22 @@ def build_elemtype(ctx, et, prefix=False):
             tmp_name = "%s:%s" % (prefix, et.arg)
             elemtype = class_map[tmp_name]
             passed = True
-          except:
+          except KeyError:
             pass
+
+        # Handle the case that the type is defined in another module, and
+        # this module uses a different prefix for the module than it uses
+        # itself.
+        if ":" in et.arg:
+          defmod = util.prefix_to_module(et.i_module,
+                           et.arg.split(":")[0], et.pos, ctx.errors)
+          origpfx = defmod.search_one("prefix").arg
+          try:
+            elemtype = class_map["%s:%s" % (origpfx, et.arg.split(":")[1])]
+            passed = True
+          except KeyError:
+            pass
+
         if passed is False:
           sys.stderr.write("FATAL: unmapped type (%s)\n" % (et.arg))
           if DEBUG:
@@ -1312,7 +1348,6 @@ def find_absolute_default_type(default_type, default_value, elemname):
     except (ValueError, TypeError):
       pass
   return find_absolute_default_type(default_type, default_value, elemname)
-
 
 def get_element(ctx, fd, element, module, parent, path,
                   parent_cfg=True, choice=False, register_paths=True):
@@ -1475,9 +1510,10 @@ def get_element(ctx, fd, element, module, parent, path,
     # we need to indicate that the default type for the class_map
     # is str
     tmp_class_map = copy.deepcopy(class_map)
-    tmp_class_map["enumeration"] = {"parent_type": "string"}
-
-
+    tmp_class_map["enumeration"] = {
+      "parent_type": "string",
+      "base_type": False,
+    }
 
     if not default_type:
       if isinstance(elemtype, list):
@@ -1533,6 +1569,7 @@ def get_element(ctx, fd, element, module, parent, path,
           else:
             to_visit = [default_type["parent_type"]]
         checked = list()
+
         while to_visit:
           check = to_visit.pop(0)  # remove from the top of stack - depth first
           if check not in checked:
@@ -1542,10 +1579,34 @@ def get_element(ctx, fd, element, module, parent, path,
                 to_visit.extend(tmp_class_map[check]["parent_type"])
               else:
                 to_visit.append(tmp_class_map[check]["parent_type"])
-        default_type = tmp_class_map[checked.pop()]
-        if not default_type["base_type"]:
-          raise TypeError("default type was not a base type")
 
+        # We could have multiple types for our default, which indicates
+        # that there is a union in the chain of default types. In the
+        # case that this occurs, we need to determine which type should
+        # be used when creating the default, and hence we find their
+        # native types.
+        candidate_defaults = []
+        for dt in checked:
+          candidate_default = tmp_class_map[checked.pop()]
+          if not candidate_default["base_type"]:
+            e = candidate_default
+            while not e["base_type"]:
+              e = tmp_class_map[e["parent_type"]]
+            candidate_default = e
+          if candidate_default not in candidate_defaults:
+            candidate_defaults.append(candidate_default)
+        if len(candidate_defaults) > 1:
+          # Find the first type that the default matches.
+          for d in candidate_defaults:
+            try:
+              d["pytype"](elemdefault)
+              default_type = d
+              break
+            except ValueError:
+              pass
+        else:
+          default_type = candidate_defaults.pop(0)
+            
     # Set the default type based on what was determined above about the
     # correct value to set.
     if default_type:

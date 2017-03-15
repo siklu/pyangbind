@@ -8,6 +8,10 @@ submodule subm-b {
     }
   }
 
+  container in-b { 
+    leaf a { type string; }
+  }
+
   identity i { }
   identity j { base i; }
 

@@ -52,6 +52,10 @@ module union {
         }
     }
 
+    typedef includes-a-union {
+        type union-a;
+    }
+
     typedef union-b {
         type union {
             type decimal64 {
@@ -188,6 +192,11 @@ module union {
                     range "0..max";
                 }
             }
+        }
+
+        leaf u13 {
+            type includes-a-union;
+            default 42;
         }
     }
 }

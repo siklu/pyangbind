@@ -1,0 +1,53 @@
+module mod-a {
+  namespace "http://example.com/a";
+  prefix a;
+
+  import mod-c { prefix "b"; }
+
+  include subm-b;
+  include subm-x;
+
+  typedef ip-address-no-zone {
+    type string {
+      pattern "[0-9\.]+";
+    }
+  }
+
+  typedef ip-address {
+      type union {
+          type string {
+              length "0";
+          }
+          type ip-address-no-zone;
+      }
+      default "";
+      description
+          "An IP address.
+           The empty string ('') means no address is specified.";
+  }
+
+  typedef mixed-union-default {
+    type union {
+      type uint32;
+      type string;
+    }
+  }
+
+
+  container d {
+    leaf e { type b:astring; }
+    leaf f {
+      type union {
+        type b:astring;
+      }
+    }
+    //leaf g {
+    //  type ip-address;
+    //  default "0.0.0.0";
+    //}
+    leaf h {
+      type mixed-union-default;
+      default 42;
+    }
+  }
+}

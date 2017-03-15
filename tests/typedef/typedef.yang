@@ -19,6 +19,17 @@ module typedef {
         type string;
     }
 
+    typedef restricted-string-union {
+        type union {
+            type string {
+                pattern '[0-9]+\..*';
+            }
+            type string {
+                pattern "[0-9A-Fa-f]+:.*";
+            }
+        }
+    }
+
     typedef restricted-integer-type {
         type uint16 {
             range 0..64;
@@ -206,6 +217,11 @@ module typedef {
 
         leaf union-idref {
             type union-with-idref;
+        }
+
+        leaf default-from-restricted-string {
+            type restricted-string-union;
+            default "192.0.2.1";
         }
 
         uses scoped-typedef;

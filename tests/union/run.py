@@ -117,8 +117,6 @@ def main():
       "leaf-list of union of unions did not correctly validate value " + \
         "(%s -> %s != %s)" % (i[0], passed, i[1])
 
-    print u.container.u9
-
   # 10-20, 30-40 or starting with a and b
   for i in [(15, True), (35, True), ("aardvark", True), ("bear", True),
             (21, False), (42, False), ("cat", False), ("fish", False)]:

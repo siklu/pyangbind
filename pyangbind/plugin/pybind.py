@@ -1606,7 +1606,7 @@ def get_element(ctx, fd, element, module, parent, path,
               pass
         else:
           default_type = candidate_defaults.pop(0)
-            
+
     # Set the default type based on what was determined above about the
     # correct value to set.
     if default_type:

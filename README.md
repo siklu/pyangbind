@@ -307,11 +307,10 @@ Further information as to the implementation and usage of PyangBind can be found
 
 ## Licensing <a name="licensing"></a>
 ```
-Copyright 2015, Rob Shakir (rjs@rob.sh)
+Copyright 2015, the Pyangbind contributors.
 
-This project has been supported by:
-          * Jive Communications, Inc.
-          * BT plc.
+Organisations who have sponsored this project are listed in
+SUPPORTERS.md, contributors are listed in CONTRIBUTORS.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

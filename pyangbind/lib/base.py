@@ -1,9 +1,5 @@
 """
-Copyright 2015, Rob Shakir (rjs@jive.com, rjs@rob.sh)
-
-This project has been supported by:
-          * Jive Communcations, Inc.
-          * BT plc.
+Copyright 2015, the Pyangbind contributors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

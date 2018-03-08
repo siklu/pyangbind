@@ -1,5 +1,8 @@
 """
-Copyright 2016, the Pyangbind contributors.
+Copyright 2016, Google Inc.
+Modifications copyright 2018, the Pyangbind contributors.
+
+Author: robjs@google.com
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

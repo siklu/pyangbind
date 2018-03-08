@@ -180,20 +180,20 @@ This outputs the following JSON structured text:
                     "next-hops": {
                         "next-hop": {
                             "0": {
-                                "index": "0", 
+                                "index": "0",
                                 "config": {
                                     "next-hop": "192.168.0.1"
                                 }
-                            }, 
+                            },
                             "1": {
-                                "index": "1", 
+                                "index": "1",
                                 "config": {
                                     "next-hop": "10.0.0.1"
                                 }
                             }
                         }
-                    }, 
-                    "prefix": "192.0.2.1/32", 
+                    },
+                    "prefix": "192.0.2.1/32",
                     "config": {
                         "set-tag": 42
                     }
@@ -223,20 +223,20 @@ And the corresponding output:
                 "next-hops": {
                     "next-hop": [
                         {
-                            "index": "0", 
+                            "index": "0",
                             "config": {
                                 "next-hop": "192.168.0.1"
                             }
-                        }, 
+                        },
                         {
-                            "index": "1", 
+                            "index": "1",
                             "config": {
                                 "next-hop": "10.0.0.1"
                             }
                         }
                     ]
-                }, 
-                "prefix": "192.0.2.1/32", 
+                },
+                "prefix": "192.0.2.1/32",
                 "config": {
                     "set-tag": 42
                 }
@@ -307,7 +307,9 @@ Further information as to the implementation and usage of PyangBind can be found
 
 ## Licensing <a name="licensing"></a>
 ```
-Copyright 2015, the Pyangbind contributors.
+Copyright 2015  Rob Shakir <rjs@rob.sh>
+Modifications copyright 2016, Google Inc.
+Further modifications copyright 2018, the Pyangbind contributors.
 
 Organisations who have sponsored this project are listed in
 SUPPORTERS.md, contributors are listed in CONTRIBUTORS.
@@ -327,7 +329,8 @@ limitations under the License.
 
 ## Acknowledgements <a name="acks"></a>
 * This project was initiated as part of BT plc. Network Architecture 'future network management' projects.
-* Ongoing development and support for this project is supported by [Jive Communications, Inc](www.jive.com).
+* Ongoing development and support of this project is supported by a number of organisations, listed in the [SUPPORTERS.md](SUPPORTERS.md) file.
+* Contributors to the Pyangbind project are listed in [CONTRIBUTORS](CONTRIBUTORS).
 * Members of the [OpenConfig](http://www.openconfig.net) working group have assisted greatly in debugging, and designing a number of the approaches used in PyangBind.
 * Thanks to folks from Juniper Networks for their views on Python mapping, and examples that are included as part of the PyangBind unit tests.
 

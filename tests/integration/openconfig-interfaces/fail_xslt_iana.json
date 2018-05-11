@@ -1,0 +1,16 @@
+{
+  "openconfig-interfaces:interfaces": {
+    "interface": [
+      {
+        "name": "eth1/1",
+        "config": {
+          "description": "SE1",
+          "enabled": false,
+          "name": "eth1/1",
+          "mtu": 1500,
+          "type": "iana-if-type:ethernetCsmacd"
+        }
+      }
+    ]
+  }
+}

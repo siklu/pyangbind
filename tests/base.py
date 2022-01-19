@@ -1,4 +1,3 @@
-import distutils
 import importlib
 import inspect
 import os.path
@@ -60,9 +59,6 @@ class PyangBindTestCase(unittest.TestCase):
 
         if cls.yang_files is None:
             raise ValueError("cls.yang_files must be set")
-        pyang_path = distutils.spawn.find_executable("pyang")
-        if not pyang_path:
-            raise RuntimeError("Could not locate `pyang` executable.")
         base_dir = os.path.dirname(os.path.dirname(__file__))
         yang_files = [os.path.join(cls._test_path, filename) for filename in cls.yang_files]
         plugin_dir = os.path.join(base_dir, "pyangbind", "plugin")
@@ -73,7 +69,7 @@ class PyangBindTestCase(unittest.TestCase):
             flags.append("--split-class-dir {}".format(cls._pyang_generated_class_dir))
 
         pyang_cmd = "{pyang} --plugindir {plugins} -f pybind -p {test_path} {flags} {yang_files}".format(
-            pyang=pyang_path,
+            pyang="pyang",
             plugins=plugin_dir,
             test_path=cls._test_path,
             flags=" ".join(flags),

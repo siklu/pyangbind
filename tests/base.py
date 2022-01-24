@@ -68,6 +68,7 @@ class PyangBindTestCase(unittest.TestCase):
             cls._pyang_generated_class_dir = os.path.join(cls._test_path, cls.module_name)
             flags.append("--split-class-dir {}".format(cls._pyang_generated_class_dir))
 
+        # no need for distutils to lacate pyang executable
         pyang_cmd = "{pyang} --plugindir {plugins} -f pybind -p {test_path} {flags} {yang_files}".format(
             pyang="pyang",
             plugins=plugin_dir,

@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 
-import os.path
+import os
+import sys
 import unittest
 
-from lxml import objectify
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..')))
 
+from lxml import objectify
 from pyangbind.lib.serialise import pybindIETFXMLDecoder, pybindIETFXMLEncoder
 from tests.base import PyangBindTestCase
 from tests.serialise.xml_utils import xml_tree_equivalence

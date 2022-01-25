@@ -19,7 +19,7 @@ To achieve this the class hierarchy needs to be serialized (encoded) into a form
 PyangBind class can be serialized into any of the supported formats including XML and JSON.
 All netconf  in/out messages payloads are YANG model entities encoded in XML format,
 The rules for this mapping are defined in RFC 7950.
-Current Test uses XML payload as an input to verify data integrity between decoding/encoding PyangBind methods. 
+Current Test uses XML payload as an input to verify data integrity between decoding/encoding PyangBind methods using Siklu YANG model. 
 """
 class XMLDeserialiseTests(PyangBindTestCase):
 

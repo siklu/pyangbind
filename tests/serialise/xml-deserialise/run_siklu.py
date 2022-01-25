@@ -4,6 +4,7 @@ import os
 import sys
 import unittest
 
+# make PyangBindTestCase class available
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..')))
 
 from lxml import objectify

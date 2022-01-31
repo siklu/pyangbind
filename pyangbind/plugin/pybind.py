@@ -582,6 +582,7 @@ def build_typedefs(ctx, defnd):
         if type_name in known_types:
             raise TypeError("Duplicate definition of %s" % type_name)
         default_stmt = item.search_one("default")
+        default_stmt = None # Siklu workaround. TODO: remove this line and fix complex default_type issue
 
         # 'elemtype' is a list when the type includes a union, so we need to go
         # through and build a type definition that supports multiple types.
@@ -1532,6 +1533,7 @@ def get_element(ctx, fd, element, module, parent, path, parent_cfg=True, choice=
         # then starting at the selected default node, traverse
         # until we find a node that is declared to be a base_type
         elemdefault = element.search_one("default")
+        elemdefault = None # Siklu workaround. TODO: remove this line and fix complex default_type issue
         default_type = False
         quote_arg = False
         if elemdefault is not None:

@@ -29,6 +29,7 @@ from decimal import Decimal
 import regex
 import six
 from bitarray import bitarray
+from lxml import objectify
 
 # Words that could turn up in YANG definition files that are actually
 # reserved names in Python, such as being builtin types. This list is
@@ -368,6 +369,9 @@ def RestrictedClassType(*args, **kwargs):
             if val is not False:
                 for test in self._restriction_tests:
                     passed = False
+                    # python 3 support for string base type
+                    if isinstance(val, objectify.StringElement):
+                        val = val.pyval
                     if test(val) is not False:
                         passed = True
                         break

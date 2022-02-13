@@ -2,9 +2,43 @@
   <radio-dn>
     <node-config>
       <default-radio-profile>
-        <frequency>60480</frequency>
+        <frequency>64800</frequency>
+        <polarity>even</polarity>
+        <tx-golay-index>1</tx-golay-index>
+        <rx-golay-index>1</rx-golay-index>
       </default-radio-profile>
+      <is-pop-dn>true</is-pop-dn>
       <sync-mode>gps-sync-holdover</sync-mode>
     </node-config>
+    <sectors-config>
+      <sector>
+        <index>4</index>
+        <radio-profile>
+          <frequency>unspecified</frequency>
+          <polarity>unspecified</polarity>
+          <tx-golay-index>unspecified</tx-golay-index>
+          <rx-golay-index>unspecified</rx-golay-index>
+        </radio-profile>
+      </sector>
+    </sectors-config>
+    <links>
+      <configured>
+        <remote-assigned-name>0000020b</remote-assigned-name>
+        <remote-sector>
+          <index>1</index>
+        </remote-sector>
+        <local-sector>
+          <index>3</index>
+        </local-sector>
+        <control-superframe>0</control-superframe>
+        <responder-node-type>dn</responder-node-type>
+        <admin-status>up</admin-status>
+        <state>
+          <state>Connected</state>
+        </state>
+        <tx-golay-index>unspecified</tx-golay-index>
+        <rx-golay-index>unspecified</rx-golay-index>
+      </configured>
+    </links>
   </radio-dn>
 </radio-bridge-tg-radio-dn>

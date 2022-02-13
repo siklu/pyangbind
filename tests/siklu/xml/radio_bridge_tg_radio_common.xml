@@ -30,5 +30,47 @@
         </state>
       </sector>
     </sectors-config>
+    <links>
+      <active>
+        <remote-assigned-name>0000020b</remote-assigned-name>
+        <actual-remote-sector-index>1</actual-remote-sector-index>
+        <actual-local-sector-index>3</actual-local-sector-index>
+        <remote-mac-addr>06:5a:97:2a:41:bc</remote-mac-addr>
+        <local-role>initiator</local-role>
+        <link-uptime>330</link-uptime>
+        <rssi>-61</rssi>
+        <snr>13</snr>
+        <mcs-rx>2</mcs-rx>
+        <mcs-tx>9</mcs-tx>
+        <tx-per>97.89</tx-per>
+        <rx-per>0.00</rx-per>
+        <tx-power-index>6</tx-power-index>
+        <speed-rx>620</speed-rx>
+        <speed-tx>2050</speed-tx>
+        <tx-beam>
+          <beam-index>3</beam-index>
+          <beam-azimuth>0</beam-azimuth>
+          <beam-elevation>0</beam-elevation>
+        </tx-beam>
+        <rx-beam>
+          <beam-index>3</beam-index>
+          <beam-azimuth>0</beam-azimuth>
+          <beam-elevation>0</beam-elevation>
+        </rx-beam>
+        <counters>
+          <rx-ok>94873</rx-ok>
+          <tx-ok>237</tx-ok>
+          <tx-fail>3901</tx-fail>
+          <rx-fail>14</rx-fail>
+          <rx-hcs-fail>1</rx-hcs-fail>
+          <tx-failures>35</tx-failures>
+          <rx-failures>15</rx-failures>
+          <rx-drop-buf-size>0</rx-drop-buf-size>
+          <rx-drop-encryption-fail>0</rx-drop-encryption-fail>
+          <rx-drop-ra-mismatch>0</rx-drop-ra-mismatch>
+          <rx-drop-unexpected>0</rx-drop-unexpected>
+        </counters>
+      </active>
+    </links>
   </radio-common>
 </radio-bridge-tg-radio-common>

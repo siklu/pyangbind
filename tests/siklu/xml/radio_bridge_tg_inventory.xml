@@ -1,0 +1,81 @@
+<radio-bridge-tg-inventory xmlns="http://siklu.com/yang/tg/inventory">
+  <inventory>
+    <component>
+      <name>Baseband</name>
+      <parent>MH-N366</parent>
+      <parent-rel-pos>0</parent-rel-pos>
+      <child>
+        <name>Bootloader</name>
+      </child>
+      <child>
+        <name>eth1</name>
+      </child>
+      <child>
+        <name>eth2</name>
+      </child>
+      <child>
+        <name>eth3</name>
+      </child>
+      <hardware-rev>A1.0</hardware-rev>
+      <serial-num>F047419475</serial-num>
+      <is-fru>false</is-fru>
+    </component>
+    <component>
+      <name>Bootloader</name>
+      <parent>Baseband</parent>
+      <parent-rel-pos>0</parent-rel-pos>
+      <firmware-rev>1.0.0-21894-2b1d294a35ee</firmware-rev>
+      <is-fru>false</is-fru>
+    </component>
+    <component>
+      <name>MH-N366</name>
+      <description>MH-N366</description>
+      <child>
+        <name>RF sector 1</name>
+      </child>
+      <hardware-rev>0</hardware-rev>
+      <software-rev>1.2.0-2341-f9978ab9c-debug</software-rev>
+      <serial-num>S0000000020b</serial-num>
+      <mfg-name>Siklu</mfg-name>
+      <model-name>MH-N366-CCP-PoE-MWB-SPIDER</model-name>
+      <is-fru>true</is-fru>
+    </component>
+    <component>
+      <name>RF sector 1</name>
+      <parent>MH-N366</parent>
+      <parent-rel-pos>1</parent-rel-pos>
+      <child>
+        <name>RF sector 1 Antenna</name>
+      </child>
+      <is-fru>true</is-fru>
+    </component>
+    <component>
+      <name>RF sector 1 Antenna</name>
+      <description>Conducted Spider</description>
+      <parent>RF sector 1</parent>
+      <parent-rel-pos>0</parent-rel-pos>
+      <is-fru>false</is-fru>
+    </component>
+    <component>
+      <name>eth1</name>
+      <description>RJ-45,10G/5G/2.5G/1G/100M</description>
+      <parent>Baseband</parent>
+      <parent-rel-pos>3</parent-rel-pos>
+      <is-fru>false</is-fru>
+    </component>
+    <component>
+      <name>eth2</name>
+      <description>RJ-45,1G/100M</description>
+      <parent>Baseband</parent>
+      <parent-rel-pos>1</parent-rel-pos>
+      <is-fru>false</is-fru>
+    </component>
+    <component>
+      <name>eth3</name>
+      <description>SFP+,10G/1G cage</description>
+      <parent>Baseband</parent>
+      <parent-rel-pos>2</parent-rel-pos>
+      <is-fru>false</is-fru>
+    </component>
+  </inventory>
+</radio-bridge-tg-inventory>

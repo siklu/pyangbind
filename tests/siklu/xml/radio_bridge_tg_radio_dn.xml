@@ -1,0 +1,10 @@
+<radio-bridge-tg-radio-dn xmlns="http://siklu.com/yang/tg/radio/dn">
+  <radio-dn>
+    <node-config>
+      <default-radio-profile>
+        <frequency>60480</frequency>
+      </default-radio-profile>
+      <sync-mode>gps-sync-holdover</sync-mode>
+    </node-config>
+  </radio-dn>
+</radio-bridge-tg-radio-dn>

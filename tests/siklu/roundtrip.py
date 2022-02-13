@@ -52,7 +52,7 @@ class XMLDeserialise():
         model = self.get_model(module_name)
         if not model:
             return False
-        with open(os.path.join(os.path.dirname(__file__), 'xml', model['xml_file']), "r") as fp:
+        with open(os.path.join(os.path.dirname(__file__), model['xml_file']), "r") as fp:
             external_xml = fp.read()
             existing_doc = objectify.fromstring(external_xml)
             bindings = importlib.import_module('gen.'

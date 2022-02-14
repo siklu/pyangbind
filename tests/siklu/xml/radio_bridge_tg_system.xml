@@ -1,0 +1,26 @@
+<radio-bridge-tg-system xmlns="http://siklu.com/yang/tg/system">
+  <system>
+    <name>0000020b</name>
+    <reboot-needed>false</reboot-needed>
+    <control>
+      <soft-watchdog-enabled>true</soft-watchdog-enabled>
+    </control>
+    <state>
+      <product>MH-N366</product>
+      <date-and-time>2022-02-08 08:41:55</date-and-time>
+      <uptime>0005:18:56:51</uptime>
+      <is-rollback-active>false</is-rollback-active>
+      <banks-info>
+        <banks>
+          <number>1</number>
+          <software-version>not-exist / corrupted</software-version>
+          <status>passive</status>
+          <scheduled-to-switch>idle</scheduled-to-switch>
+        </banks>
+      </banks-info>
+      <sw-upgrade-info>
+        <download-and-burning-state>not-started</download-and-burning-state>
+      </sw-upgrade-info>
+    </state>
+  </system>
+</radio-bridge-tg-system>

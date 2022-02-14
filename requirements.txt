@@ -4,3 +4,4 @@ lxml
 regex
 six
 enum34
+parameterized

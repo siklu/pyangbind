@@ -1,0 +1,7 @@
+<radio-bridge-tg-user-management xmlns="http://siklu.com/yang/tg/user-management">
+  <user-management>
+    <user>
+      <username>admin</username>
+    </user>
+  </user-management>
+</radio-bridge-tg-user-management>

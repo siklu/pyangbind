@@ -1,0 +1,13 @@
+<radio-bridge-tg-ip xmlns="http://siklu.com/yang/tg/ip">
+  <ip>
+    <ipv4>
+      <address>
+        <ip>192.168.0.1</ip>
+        <prefix-length>24</prefix-length>
+      </address>
+    </ipv4>
+    <ipv6>
+      <link-local>fe80::45a:97ff:fe2a:41bc</link-local>
+    </ipv6>
+  </ip>
+</radio-bridge-tg-ip>
